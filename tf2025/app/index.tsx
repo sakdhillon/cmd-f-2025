@@ -3,6 +3,8 @@ import { Text, View, TouchableOpacity } from "react-native";
 import { Button } from "react-native-paper";
 import axios from 'axios';
 import { useState,useEffect } from "react";
+import Header from "../components/Header";
+import {colors} from "../styles/styles"
 
 
 export default function Index() {
@@ -28,10 +30,12 @@ export default function Index() {
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
+        padding:30,
         alignItems: "center",
       }}
     >
+
+      <Header back={"/"}/>
       <Text>{message || 'Fetching message...'}</Text>
       
       <Text>We're going to try this now</Text>
