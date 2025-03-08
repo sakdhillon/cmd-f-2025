@@ -1,9 +1,19 @@
 const express = require('express');
 const http = require('http');
+const cors = require('cors')
 let app = express();
 
 // to allow for static files - like images
 app.use(express.static('public'));
+app.use(cors({
+    origin: '*', 
+    methods: 'GET,POST', 
+}));
+
+//testing connection
+app.get('/page', (req, res) => {
+    res.json({ message: 'Hello from the backend!' });
+});
 
 // initializing the database
 const db = require('./model/db.js');
