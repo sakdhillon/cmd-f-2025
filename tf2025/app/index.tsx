@@ -4,7 +4,7 @@ import { Button } from "react-native-paper";
 import axios from 'axios';
 import { useState,useEffect } from "react";
 import Header from "../components/Header";
-import {colors} from "../styles/styles"
+import {colors, defaultStyle} from "../styles/styles"
 
 
 export default function Index() {
@@ -27,21 +27,66 @@ export default function Index() {
 
 
   return (
+  <View style={defaultStyle.container}>
+    <Header back={"/"}/>
     <View
       style={{
         flex: 1,
-        padding:30,
+        padding:10,
         alignItems: "center",
       }}
     >
+    
+    
+      <Text style={{
+        fontSize: 20,
+        color: colors.color2,
+        backgroundColor:'white',
+        padding: 20,    
+        borderRadius: 60,
+        margin: 10,     
+      }}>{message || 'Fetching message...'}</Text>    
+   
 
-      <Header back={"/"}/>
-      <Text>{message || 'Fetching message...'}</Text>
-      
-      <Text>We're going to try this now</Text>
-     <TouchableOpacity onPress={() => router.push("./profile")}>
-      <Text>Let's go</Text>
-      </TouchableOpacity>
+
+
+    <TouchableOpacity onPress={() => router.push("./chat")}>       
+    <Text style={{
+        fontSize: 20,
+        color: colors.color2,
+        backgroundColor:'white',
+        padding: 20,    
+        borderRadius: 60,
+        margin: 10, }} >Chat</Text>
+    </TouchableOpacity>
+    
+    <TouchableOpacity onPress={() => router.push("./profile")}>
+    <Text
+    style={{
+      fontSize: 20,
+      color: colors.color2,
+      backgroundColor:'white',
+      padding: 20,    
+      borderRadius: 60,
+      margin: 10,}} 
+    >Profile</Text>
+    </TouchableOpacity>
+
+    <TouchableOpacity onPress={() => router.push("./meds")}>
+    <Text
+    style={{
+      fontSize: 20,
+      color: colors.color2,
+      backgroundColor:'white',
+      padding: 20,    
+      borderRadius: 60,
+      margin: 10,}} >Tracker</Text>
+    </TouchableOpacity>
+
+
+  
+   
+    </View>
     </View>
   );
 }

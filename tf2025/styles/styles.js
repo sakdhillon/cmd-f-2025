@@ -7,3 +7,12 @@ color3:" #FEFAEE",
 
 
 }
+
+export const defaultStyle = StyleSheet.create({
+
+    container: {
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight || 0 : 0,
+        flex: 1,
+        backgroundColor: colors.color1,
+      },
+});
