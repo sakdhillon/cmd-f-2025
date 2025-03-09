@@ -50,9 +50,9 @@ export const addMed = async ({ inputData }) => {
 
 
 
-export const editMed = async ({ med, inputData }) => {
+export const editMed = async ({ inputData }) => {
   try {
-    const res = await axios.post('http://localhost:8080/addmeds/edit', { med, inputData });
+    const res = await axios.post('http://localhost:8080/addmeds/edit', inputData);
     return res.data;
   } catch (err) {
     console.error('Error adding medication:', err);
@@ -61,4 +61,20 @@ export const editMed = async ({ med, inputData }) => {
 };
 
 
-module.exports = { getInfo, getMed, addMed, editMed }
+export const deleteMed = async (id, username) => {
+  try {
+    const res = await axios.delete(`http://localhost:8080/addmeds/delete/med?medId=${id}&username=${username}`, {
+      withCredentials: true,
+    });
+    console.log("Deleted:", res.data);
+    return res.data; 
+  } catch (error) {
+    console.error("Error deleting medication:", error.response?.data || error.message);
+    throw error;
+  }
+};
+
+
+
+
+module.exports = { getInfo, getMed, addMed, editMed, deleteMed }

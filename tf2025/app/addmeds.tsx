@@ -15,7 +15,7 @@ import { CiSquarePlus } from "react-icons/ci";
 import { MdAllInbox, MdEdit, MdDelete } from "react-icons/md";
 import axios from "axios";
 import { useRouter } from "expo-router";
-import { getMed, addMed, editMed } from "../services/services";
+import { getMed, addMed, editMed, deleteMed } from "../services/services";
 
 const AddMed = () => {
   const router = useRouter();
@@ -30,7 +30,20 @@ const AddMed = () => {
 
   const [showInput, setShowInput] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [allMeds, setAllMeds] = useState([]);
+  // const [allMeds, setAllMeds] = useState([]);
+
+  type Med = {
+    _id: string;
+    name: string;
+    keyMol?: string;
+    intakeDosing?: string;
+    intakeFrequency?: string;
+    amountpd?: string;
+    description?: string;
+  };
+  
+  const [allMeds, setAllMeds] = useState<Med[]>([]);
+  
 
   const getAllMeds = () => {
     const url = "http://localhost:8080/tracker/allmeds";
@@ -49,17 +62,6 @@ const AddMed = () => {
   useEffect(() => {
     scrollToBottom(allMeds.length > 0); // Scroll only if there are meds
   }, [allMeds]);
-
-  const handleEdit = (med) => {
-    setIsEdit(true);
-    setMedName(med.name);
-    setKeyMolecules(med.keyMol);
-    setDosing(med.intakeDosing);
-    setFrequency(med.intakeFrequency);
-    setAmount(med.amountpd);
-    setDescription(med.description);
-    setShowInput(true);
-  };
 
   const getUser = async () => {
     const fetchedMed = await getMed("aLove", "medName"); // Update this with actual userID and med name
@@ -80,6 +82,17 @@ const AddMed = () => {
   //     }
   //   }, [med]);
 
+  const remove = async (id: string) => {
+    try {
+      await deleteMed(id, "aLove"); // Replace "aLove" with the actual username if dynamic
+      console.log("Medication deleted successfully!");
+      getAllMeds(); // Refresh the list after deletion
+    } catch (error) {
+      console.error("Error deleting medication:", error);
+    }
+  };
+  
+
   const handleSubmit = async () => {
     const medData = {
       name: medName,
@@ -93,7 +106,7 @@ const AddMed = () => {
 
     if (isEdit) {
       const updatedMed = await editMed({
-        med: medData.name,
+        med: medName,
         inputData: medData,
       });
       if (updatedMed) {
@@ -116,15 +129,12 @@ const AddMed = () => {
     setShowInput(false);
   };
 
-  const scrollToBottom = (shouldScroll) => {
+  const scrollToBottom = (shouldScroll: boolean) => {
     if (shouldScroll) {
       scrollViewRef.current?.scrollToEnd({ animated: false });
     }
   };
 
-  const handleDelete = (id) => {
-    axios.delete("http://localhost:8080/addmeds/delete");
-  };
 
   return (
     <View style={defaultStyle.container}>
@@ -235,10 +245,10 @@ const AddMed = () => {
                 {allMeds.map((med) => (
                   <View key={med._id} style={styles.medItem}>
                     <Text style={{ fontSize: 18 }}>{med.name}</Text>
-                    <Pressable onPress={() => handleEdit(med)}>
+                    <Pressable onPress={() => getUser(med)}>
                       <MdEdit />
                     </Pressable>
-                    <Pressable onPress={() => handleDelete(med._id)}>
+                    <Pressable onPress={() => remove(med._id)}>
                       <MdDelete />
                     </Pressable>
                   </View>

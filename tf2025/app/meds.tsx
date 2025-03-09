@@ -12,7 +12,7 @@ import { TextInput } from "react-native-paper";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "expo-router";
 import Footer from "@/components/Footer";
-import { getMed, addMed, editMed } from '../services/services';
+import { getMed, addMed, editMed, deleteMed } from '../services/services';
 
 const meds = () => {
 
@@ -46,6 +46,15 @@ const meds = () => {
   //     getUser(); 
   //   }
   // }, [med]);
+
+  const remove = async (id: string, username: string) => {
+    try {
+        const res = await deleteMed(id, username);
+        console.log("Deleted successfully:", res);
+    } catch (err) {
+        console.error("Error deleting medication:", err);
+    }
+  };
 
   const handleSubmit = async () => {
     const medData = {
