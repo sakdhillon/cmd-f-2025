@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+var mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 let app = express();
@@ -33,6 +34,10 @@ app.use('/meds', meds);
 
 const tracker = require('./Tracker/tracker');
 app.use('/tracker', tracker);
+
+
+// const Data = require('./Data/data')
+// app.use('/data', Data)
 
 
 // initializing the database

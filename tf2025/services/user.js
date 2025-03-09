@@ -1,15 +1,15 @@
-import axios from "axios"
+import axios from "axios";
 
 export const getInfo = async () => {
-    const user =  await axios.get(process.env.SERVER_URL + "/info", {withCredentials: true})
-        .then(res => {
-            return res.data.user
-        })
-        .catch(err => {
-            alert(err)
-            return null
-        })
-    return user
-}
+    try {
+        const res = await axios.get(`http://localhost:8080/profile/info`);
+        console.log("Raw response:", res.data); 
+        return res.data;  
+    } catch (err) {
+        console.error("Error fetching user info:", err);
+        alert(err);
+        return null;  
+    }
+};
 
 module.exports = {getInfo}

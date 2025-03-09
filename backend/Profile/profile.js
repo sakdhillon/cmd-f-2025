@@ -13,6 +13,7 @@ router.get('/info', async (req, res) => {
     //database query 
     await db.User.findOne(id).then(async (user,err) => {
         if(!err){
+            console.log("cooolll")
             res.status(200).json(user)
         }
         else{

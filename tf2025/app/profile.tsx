@@ -1,22 +1,48 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { defaultStyle, colors } from '@/styles/styles';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { TextInput } from 'react-native-paper';
 import { useRouter } from 'expo-router';
+import { getInfo } from '../services/user';
+import axios from "axios";
 
 const Profile = () => {
-
-const router=useRouter();
   //Currently hardcoded values to check styling
-  const [firstName, setFirstName] = useState('ABC');
-  const [lastName, setLastName] = useState('EFG');
-  const [email, setEmail] = useState('HIJ@cmdf.com');
-  const [pronouns, setPronouns] = useState('He/Her');
-  const [identity, setIdentity] = useState('Heterosexual');
-  const [prefName, setPrefName] = useState('Tara');
-  const [goal, setGoal] = useState('Get less Anxious-Avoidant');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pronouns, setPronouns] = useState('');
+  const [identity, setIdentity] = useState('');
+  const [prefName, setPrefName] = useState('');
+  const [goal, setGoal] = useState('');
+
+  const router = useRouter()
+  const [userLoaded,setUserLoadState] = useState(false)
+  const [user,setUser] = useState([])
+ 
+  const getUser = async () => {
+    const fetchedUser = await getInfo(); 
+    console.log("fetchedUser:", fetchedUser);
+
+    if (fetchedUser) {
+        setUser(fetchedUser); 
+        setFirstName(fetchedUser.fname);
+        setLastName(fetchedUser.lname);
+        setEmail(fetchedUser.email);
+        setPronouns(fetchedUser.pronouns);
+        setIdentity(fetchedUser.identity);
+        setPrefName(fetchedUser.pname);
+        setGoal(fetchedUser.goal);
+      } else {
+          router.push('/')
+      }
+  }
+ 
+  useEffect(() => {
+      getUser()
+  }, [])
 
   return (
 

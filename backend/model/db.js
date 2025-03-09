@@ -9,6 +9,7 @@ var userSchema = new Schema({
     lname: String,
     pname: String,
     age: Number,
+    email: String,
     pronouns: [String],   
     identity: String,
     goal: String

@@ -55,6 +55,7 @@ router.post('/signup', async (req, res) => {
             lname,
             pname,
             age,
+            email,
             pronouns,
             identity,
             goal
