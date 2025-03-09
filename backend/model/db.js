@@ -16,7 +16,7 @@ var userSchema = new Schema({
 })
 
 var medicationSchema = new Schema({
-    username: { type: String, unique: true, required: 'Username cannot be empty!' },
+    username: {type: String, required: 'Username cannot be empty!'},
     name: String,
     description: String,
     amountpd: String,
