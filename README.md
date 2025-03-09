@@ -9,4 +9,4 @@ To run the chatbot, follow these commands:
 `conda create -n env_langchain1 python=3.10`
 `conda activate env_langchain1`
 `pip install -r requirements.txt`
-`python rag_basics.py`
+`python app.py`
