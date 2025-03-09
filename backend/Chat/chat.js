@@ -3,10 +3,13 @@ const axios = require('axios')
 const router = express.Router();
 const db = require("../model/db");
 
-const chatUrl = "http://127.0.0.1:5000/chat"
+const chatUrl = process.env.CHAT_URL
 
 router.get('/', (req, res) => {
-    res.json({ message: 'Chat route!' });
+    db.ChatHistory.find().then(chatHistory => {
+        res.status(200).json(chatHistory)
+    })
+    // res.json({ message: 'Chat route!' });
 });
 
 router.post('/', async (req, res) => {
