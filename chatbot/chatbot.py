@@ -73,10 +73,10 @@ def chat():
     if question == "exit":
         return
     if vectorstore:
-        # response = rag_chain.invoke({"input":question})
-        response = "Gemini API limit reached, using fake hardcoded response rn..."
-        # return jsonify({"answer": f'{response["answer"]} \n'})
-        return jsonify({"answer": f'{response} \n'})
+        response = rag_chain.invoke({"input":question})
+        # response = "Gemini API limit reached, using fake hardcoded response rn..."
+        return jsonify({"answer": f'{response["answer"]} \n'})
+        # return jsonify({"answer": f'{response} \n'})
     else:
         return jsonify({"error": "No embeddings found in the directory"}), 400
 
