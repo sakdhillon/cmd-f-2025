@@ -94,27 +94,26 @@ router.post('/add', async (req, res) => {
 // delete medication 
 router.delete('/delete', async (req, res) => {
     try {
-        const username = req.user?.username || req.session?.username;
-        const { med } = req.body;
+        const id = req.body.id;
+        const username = "aLove";
+        const { name } = req.body;
 
-        if (!med) {
+        if (!name) {
             return res.status(400).json({ message: "Medication name is required!" });
         }
 
-        await db.Medication.findOneAndDelete({ username, name: med })
-            .then(deletedMed => {
-                if (deletedMed) {
-                    res.status(200).json({ message: "Deleted medication successfully!" });
-                } else {
-                    res.status(200).json({ message: "Medication not found, nothing deleted." });
-                }
-            })
+        const deletedMed = await db.Medication.findOneAndDelete({ _id: id, username, name });
 
-        if (!deletedMed) {
-            return res.status(404).json({ message: "Medication not found!" });
+        if (deletedMed) {
+            return res.status(200).json({ message: "Deleted medication successfully!" });
+        } else {
+            return res.status(404).json({ message: "Medication not found, nothing deleted." });
         }
+
     } catch (err) {
-        res.status(500).json(err);
+        console.error(err);
+        return res.status(500).json({ message: "Server error", error: err });
     }
 });
+
 module.exports = router; 
