@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
 
 
 // get request - only for the one that we are editing
-router.get('/meds/edit', async (req, res) => {
+router.get('/edit', async (req, res) => {
     let getUser = req.query.userID 
     let med = req.query.med
 
@@ -29,7 +29,7 @@ router.get('/meds/edit', async (req, res) => {
 })
 
 // for the medication that we are editing 
-router.post('/meds/edit', async (req, res) => {
+router.post('/edit', async (req, res) => {
     try {
         const username = req.user?.username || req.session?.username;
         const { med, inputData } = req.body
@@ -55,9 +55,9 @@ router.post('/meds/edit', async (req, res) => {
 })
 
 // new medication adding
-router.post('/meds/add', async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
-        const username = req.user?.username || req.session?.username;
+        const username = 'aLove'; //hardcoded - need to change 
         const {name, description, amountpd, intakeFrequency, keyMol, intakeDosing } = req.body;
 
         if (!username || !name) {
