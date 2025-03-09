@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useState,useEffect } from "react";
 import Header from "../components/Header";
 import {colors, defaultStyle} from "../styles/styles"
+import Footer from "../components/Footer";
 
 
 export default function Index() {
@@ -99,6 +100,8 @@ export default function Index() {
   
    
     </View>
+
+    <Footer/>
     </View>
   );
 }

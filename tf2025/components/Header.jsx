@@ -21,10 +21,9 @@ const router = useRouter();
       justifyContent: "flex-start",
       alignItems: "center",
       height:65,
-      //backgroundColor:colors.color1,
+      backgroundColor:colors.color4,
       width:"100%",
-      borderBottomLeftRadius:20,
-      borderBottomRightRadius:20,
+     
     }}
   >
 

@@ -24,11 +24,12 @@ return (
 
 <View style={{
       flex:1,
-      marginTop:40,
+  
       backgroundColor:colors.color1,
       borderRadius:50,
       width:"100%",
-      padding:100,
+      padding:10,
+      height:"auto"
 
 }}>
 
@@ -37,6 +38,12 @@ return (
   label="Name of Medication"
   value={medName}
   onChangeText={text => setmedName(text)}
+  style={{ marginBottom: 15,
+  borderRadius:30,
+  color:"indigo",
+
+
+   }} // Added space
 />
 
 
@@ -44,6 +51,12 @@ return (
   label="Key Molecules"
   value={keyMolecules}
   onChangeText={text => setkeyMolecules(text)}
+  style={{ marginBottom: 15,
+    borderRadius:30,
+    color:"indigo",
+
+
+  }} // Added space
 />
 
 
@@ -51,18 +64,36 @@ return (
   label="Dosing per Intake"
   value={dosing}
   onChangeText={text => setdosing(text)}
+  style={{ marginBottom: 15,
+    borderRadius:30,
+    color:"indigo",
+
+
+   }} // Added space
 />
 
 <TextInput
   label="Frequency of Intake"
   value={frequency}
   onChangeText={text => setfrequency(text)}
+  style={{ marginBottom: 15,
+    borderRadius:30,
+    color:"indigo",
+
+
+
+   }} // Added space
 />
 
 <TextInput
   label="Amount per Day"
   value={amount}
   onChangeText={text => setamount(text)}
+  style={{ marginBottom: 15,
+    borderRadius:30,
+    color:"indigo",
+
+  }} // Added space
 />
 
 
@@ -70,6 +101,11 @@ return (
   label="Description"
   value={description}
   onChangeText={text => setdescription(text)}
+  style={{ marginBottom: 15,
+    borderRadius:30,
+    color:"indigo",
+
+  }} // Added space
 />
 
 
@@ -77,7 +113,6 @@ return (
 </View>
 
 
-  <Text>Tracker</Text>
 </View>
   )
 }
