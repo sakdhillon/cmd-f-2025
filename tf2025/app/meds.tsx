@@ -12,7 +12,7 @@ import { TextInput } from "react-native-paper";
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "expo-router";
 import Footer from "@/components/Footer";
-import { getMed, addMed, editMed } from '../services/user';
+import { getMed, addMed, editMed } from '../services/services';
 
 const meds = () => {
 

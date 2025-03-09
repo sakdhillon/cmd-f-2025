@@ -14,6 +14,43 @@ const SignUp = () => {
   const [prefName, setPrefName] = useState('');
   const [goal, setGoal] = useState('');
 
+
+  // code to connect sign up page front and back end
+  
+  // const handleSubmit = async () => {
+  //   try {
+  //     const userData = {
+  //       fname: firstName,
+  //       lname: lastName,
+  //       email,
+  //       pronouns,
+  //       identity: identify,
+  //       pname: prefName,
+  //       goal,
+  //     };
+
+  //     const response = await fetch('http://localhost:8080/profile/signup', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(userData),
+  //     });
+
+  //     const data = await response.json();
+      
+  //     if (response.status === 200) {
+  //       // Handle successful signup
+  //       console.log('User created successfully', data);
+  //     } else {
+  //       // Handle error response
+  //       console.log('Error:', data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
   return (
     <View style={defaultStyle.container}>
       <View style={{ paddingTop: 60 }}>
@@ -93,7 +130,7 @@ const SignUp = () => {
           />
         </View>
 
-        <TouchableOpacity onPress={() => console.log('Sign Up pressed')} style={styles.button}>
+        <TouchableOpacity onPress={()=> console.log('sign up button pressed')} style={styles.button}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </View>

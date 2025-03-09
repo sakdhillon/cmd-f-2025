@@ -24,7 +24,7 @@ const Footer = ({ activeroute = "/index" }) => {
     >
       {/* Home Icon */}
 
-      <TouchableOpacity onPress={() => router.push("./index")}>
+      <TouchableOpacity onPress={() => router.push("./")}>
         <Avatar.Icon
           color="white"
           size={60}

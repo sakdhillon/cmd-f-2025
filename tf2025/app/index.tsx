@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { colors, defaultStyle } from "../styles/styles";
-import { getInfo } from "@/services/user";
+import { getInfo } from "../services/services";
 import Footer from "../components/Footer";
 
 export default function Index() {
@@ -27,19 +27,19 @@ export default function Index() {
     getUser();
   }, []);
 
-  const fetchMessage = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/page");
-      setMessage(response.data.message);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setMessage("Failed to fetch message");
-    }
-  };
+  // const fetchMessage = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/page");
+  //     setMessage(response.data.message);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     setMessage("Failed to fetch message");
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchMessage();
-  }, []);
+  // useEffect(() => {
+  //   fetchMessage();
+  // }, []);
 
   return (
     <View style={defaultStyle.container}>
@@ -51,7 +51,7 @@ export default function Index() {
           paddingBottom: 1000,
         }}
       >
-        <Text
+        {/* <Text
           style={{
             fontSize: 20,
             color: colors.color2,
@@ -62,7 +62,7 @@ export default function Index() {
           }}
         >
           {message || "Fetching message..."}
-        </Text>
+        </Text> */}
 
         <TouchableOpacity onPress={() => router.push("./chat")}>
           <View

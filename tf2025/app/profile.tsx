@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { TextInput } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import { getInfo } from '../services/user';
+import { getInfo } from '../services/services';
 import axios from "axios";
 
 const Profile = () => {
