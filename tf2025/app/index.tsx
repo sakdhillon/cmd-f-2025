@@ -5,33 +5,36 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { colors, defaultStyle } from "../styles/styles";
 import Footer from "../components/Footer";
-import { getInfo } from '../services/user';
 
 export default function Index() {
   const [message, setMessage] = useState("");
-  const [prefName, setPrefName] = useState('');
   const router = useRouter();
 
-  const getUser = async () => {
-    const fetchedUser = await getInfo(); 
-    console.log("fetchedUser:", fetchedUser);
+  const fetchMessage = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/page");
+      setMessage(response.data.message);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setMessage("Failed to fetch message");
+    }
+  };
 
-    if (fetchedUser) {
-        setPrefName(fetchedUser.pname);
-      } else {
-          router.push('/')
-      }
-  }
- 
   useEffect(() => {
-      getUser()
-  }, [])
+    fetchMessage();
+  }, []);
 
   return (
     <View style={defaultStyle.container}>
       <Header back={"/"} />
-      <ScrollView contentContainerStyle={{ flex: 1, alignItems: "center" }}>
-        {/* <Text
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          alignItems: "center",
+          paddingBottom: 1000,
+        }}
+      >
+        <Text
           style={{
             fontSize: 20,
             color: colors.color2,
@@ -42,7 +45,7 @@ export default function Index() {
           }}
         >
           {message || "Fetching message..."}
-        </Text> */}
+        </Text>
 
         <TouchableOpacity onPress={() => router.push("./chat")}>
           <View
@@ -98,7 +101,13 @@ export default function Index() {
               alignSelf: "center",
             }}
           />
-          <View>
+          <View
+            style={{
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
             <Text
               style={{
                 fontWeight: "bold",
@@ -107,7 +116,7 @@ export default function Index() {
                 marginRight: 20,
               }}
             >
-              Medicine Reminder
+              Oestrodose Reminder
             </Text>
             <Text
               style={{
@@ -138,7 +147,9 @@ export default function Index() {
                 }}
                 onPress={() => console.log("Taken Pressed")}
               >
-                <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>
+                <Text
+                  style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}
+                >
                   Taken
                 </Text>
               </TouchableOpacity>
