@@ -52,6 +52,7 @@ export const addMed = async ({ inputData }) => {
 
 export const editMed = async ({ inputData }) => {
   try {
+    console.log(inputData)
     const res = await axios.put('http://localhost:8080/addmeds/pedit', inputData);
     return res.data;
 

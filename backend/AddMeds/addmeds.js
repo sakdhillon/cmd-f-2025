@@ -33,11 +33,13 @@ router.get('/edit', async (req, res) => {
 router.put('/pedit', async (req, res) => {
     try {
         const username = "aLove";
-        const { name, description, amountpd, intakeFrequency, keyMol, intakeDosing } = req.body;
+        const { oldName, name, description, amountpd, intakeFrequency, keyMol, intakeDosing } = req.body;
+        console.log(name)
 
         const updateMed = await db.Medication.findOneAndUpdate(
-            { name: name, username: username },
+            { name: oldName, username: username },
             {
+                name: name,
                 description: description,
                 amountpd: amountpd,
                 intakeFrequency: intakeFrequency,
@@ -45,7 +47,7 @@ router.put('/pedit', async (req, res) => {
                 intakeDosing: intakeDosing
             },
             { new: true }
-        );
+        )
 
         console.log("updateMed == ", updateMed);
 

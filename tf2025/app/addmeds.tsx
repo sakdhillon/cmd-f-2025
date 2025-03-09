@@ -26,6 +26,7 @@ const AddMed = () => {
   const [frequency, setFrequency] = useState("");
   const [description, setDescription] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [oldName, setOldName] = useState("");
   const scrollViewRef = useRef<ScrollView>(null);
 
   const [showInput, setShowInput] = useState(false);
@@ -44,6 +45,7 @@ const AddMed = () => {
 
   const handleEdit = (med: any) => {
     setIsEdit(true);
+    setOldName(med.name);
     setMedName(med.name);
     setKeyMolecules(med.keyMol);
     setDosing(med.intakeDosing);
@@ -93,6 +95,7 @@ const AddMed = () => {
       intakeFrequency: frequency,
       amountpd: amount,
       description,
+      oldName: oldName,
     };
     console.log("medData", medData);
 
@@ -119,6 +122,7 @@ const AddMed = () => {
         setShowInput(false);
       }
     }
+    getAllMeds();
   };
 
   return (
