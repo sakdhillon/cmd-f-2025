@@ -4,11 +4,13 @@ const cors = require('cors');
 require('dotenv').config();
 let app = express();
 
+app.use(express.json());
+
 // to allow for static files - like images
 app.use(express.static('public'));
 app.use(cors({
-    origin: '*', 
-    methods: 'GET,POST', 
+    origin: '*',
+    methods: 'GET,POST',
 }));
 
 //testing connection
@@ -51,7 +53,7 @@ app.use(session({
 
 // to allow for dynamic pages
 const server = http.createServer(app);
-server.listen(process.env.PORT, () =>{
+server.listen(process.env.PORT, () => {
     console.log(`Server is running on specified port`);
 }).on('error', (err) => {
     console.error('Error starting the server:', err);
