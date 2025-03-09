@@ -48,7 +48,7 @@ export default function Index() {
               justifyContent: "space-between",
               alignItems: "center",
               paddingHorizontal: 30, 
-              marginTop: 40,
+              marginTop: 10,
             }}
           >
             <Image
@@ -98,13 +98,15 @@ export default function Index() {
               <Text style={{
                 fontWeight: "bold",   
                 fontSize: 25,
-                textAlign:"center"
+                textAlign:"center",
+                marginRight:20,
               }}>
                 Medicine Reminder
               </Text>
               <Text style={{
                 fontSize: 15,
-                textAlign:"center"
+                textAlign:"center",
+                marginRight:20,
               }}>
                 Description of Medicine
               </Text>
@@ -117,26 +119,39 @@ export default function Index() {
        
       }}
     >
-      <Button
-        mode="contained"
+       <TouchableOpacity
         style={{
-          width: "35%",  
-     
+          backgroundColor: colors.color4,
+          width: '35%',
+          paddingVertical: 10,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 5,
+          marginLeft:10,
         }}
+        onPress={() => console.log('Taken Pressed')}
       >
-        Taken
-      </Button>
+        <Text style={{ color: '#fff', fontSize: 16, fontWeight: 'bold' }}>Taken</Text>
+      </TouchableOpacity>
 
-      <Button
-        mode="contained"
+      <TouchableOpacity
         style={{
-          width: "30%",
-          paddingHorizontal: 10, 
-  
+          backgroundColor: colors.color1,
+          borderColor:colors.color4,
+          borderWidth:1,
+           width: '40%',
+          paddingVertical: 12,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginLeft:10,
+          borderRadius: 5,
         }}
+        onPress={() => console.log('Reschedule Pressed')}
       >
-      Reschedule
-      </Button>
+        <Text style={{ color: colors.color4,
+          
+          fontSize: 16, fontWeight: 'bold' }}>Reschedule</Text>
+      </TouchableOpacity>
     </View>
             </View>
           </View>
@@ -152,43 +167,78 @@ export default function Index() {
             </Text>
           </View>
 
-          <View
+          <View 
+      style={{
+        flexDirection: 'row', // Row direction to place image on the right
+        width: '100%',
+        minHeight: 150,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 30,
+        backgroundColor: '#D4FFF3',
+        marginTop: 40,
+      }}
+    >
+      <View 
+        style={{
+          flexDirection: 'column', // Stacks text vertically
+          justifyContent: 'center',
+          alignItems: 'flex-start', // Align text to the left
+          marginRight: 20, // Space between text and image
+        }}
+      >
+        <Text 
+          style={{
+            fontWeight: 'bold',
+            fontSize: 25,
+            textAlign: 'left', // Align to the left
+            marginBottom: 5, // Space between title and description
+          }}
+        >
+          Medicine Reminder
+        </Text>
+        <Text 
+          style={{
+            fontSize: 15,
+            textAlign: 'left', // Align to the left
+            marginBottom: 10, // Space between description and button
+          }}
+        >
+          Description of Medicine
+        </Text>
+
+        <TouchableOpacity 
+           onPress={() => router.push("./chat")}
+          style={{
+            backgroundColor: colors.color4,
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            borderRadius: 5,
+            marginTop: 10, // Space between text and button
+            alignItems: 'center',
+          }}
+        >
+          <Text 
             style={{
-              flexDirection: "row",
-              width: "100%",
-              minHeight: 150,
-              justifyContent: "space-between",
-              alignItems: "center",
-              paddingHorizontal: 30, 
-              backgroundColor: "#D4FFF3",
-              marginTop: 40,
+              color: '#fff',
+              fontSize: 16,
+              fontWeight: 'bold',
             }}
           >
+           Start a Chat
+          </Text>
+        </TouchableOpacity>
+      </View>
 
-
-              <Text style={{
-                fontWeight: "bold",   
-                fontSize: 25,
-                textAlign:"center"
-              }}>
-                Medicine Reminder
-              </Text>
-              <Text style={{
-                fontSize: 15,
-                textAlign:"center"
-              }}>
-                Description of Medicine
-              </Text>
-
-              <Image
-              source={require("../assets/images/heart.png")}
-              style={{
-                width: 100,
-                height: 100,
-                alignSelf: "center", 
-              }}
-            />
-              </View>
+      <Image
+        source={require("../assets/images/heart.png")}
+        style={{
+          width: 100,
+          height: 80,
+          alignSelf: 'center',
+        }}
+      />
+    </View>
               
 
 
