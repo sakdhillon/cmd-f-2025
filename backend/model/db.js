@@ -7,11 +7,27 @@ var Schema = mongoose.Schema
 var userSchema = new Schema({
     username: {type: String, unique: true, required: 'Username cannot be empty!'},
     fname: String,
-    lname: String
+    lname: String,
+    pname: String,
+    age: Number,
+    pronouns: [String],   //check the type for this 
+    identity: String,
+    goal: String
+})
+
+var medicationSchema = new Schema({
+    username: {type: String, unique: true, required: 'Username cannot be empty!'},
+    name: String,
+    description: String,
+    amountpd: String,
+    intakeFrequency: String,
+    keyMol: String,
+    intakeDosing: String
 })
 
 
 const User = mongoose.model('User',userSchema)
+const Medication = mongoose.model('Medication', medicationSchema);
 
 
 const initializeDB = () => {
@@ -22,5 +38,5 @@ const initializeDB = () => {
 
 
 module.exports = {
-    User,initializeDB
+    User, Medication, initializeDB
 }

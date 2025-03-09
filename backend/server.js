@@ -17,7 +17,21 @@ app.get('/page', (req, res) => {
 });
 
 // initializing the database
-const db = require('./model/db.js');
+const MongoStore = require('connect-mongo')
+const { initializeDB } = require('./model/db.js');
+initializeDB();
+
+const session = require('express-session');
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'randomSecretKeyForNow',
+    resave: false,
+    saveUninitialized: true,
+    httpOnly: false,
+    store: MongoStore.create({
+        mongoUrl: process.env.CONNECTION_SECRET,
+        maxAge: 3600000,
+    })
+}))
 
 // to allow for dynamic pages
 const server = http.createServer(app);
