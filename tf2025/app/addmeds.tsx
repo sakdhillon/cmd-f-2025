@@ -79,7 +79,11 @@ const AddMed = () => {
 
   const remove = async (id: string, name: any) => {
     try {
+<<<<<<< Updated upstream
       await deleteMed(id, "aLove", name); 
+=======
+      await deleteMed(id, "aLove");
+>>>>>>> Stashed changes
       console.log("Medication deleted successfully!");
       getAllMeds();
     } catch (error) {
@@ -101,7 +105,10 @@ const AddMed = () => {
 
     if (isEdit) {
       const updatedMed = await editMed({
+<<<<<<< Updated upstream
         // med: medName,
+=======
+>>>>>>> Stashed changes
         inputData: medData,
       });
       console.log("updatedMed ======== ", updatedMed);
@@ -122,7 +129,10 @@ const AddMed = () => {
         setShowInput(false);
       }
     }
+<<<<<<< Updated upstream
     getAllMeds();
+=======
+>>>>>>> Stashed changes
   };
 
   return (

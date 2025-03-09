@@ -37,7 +37,11 @@ router.put('/pedit', async (req, res) => {
         console.log(name)
 
         const updateMed = await db.Medication.findOneAndUpdate(
+<<<<<<< Updated upstream
             { name: oldName, username: username },
+=======
+            { name: name, username: username },
+>>>>>>> Stashed changes
             {
                 name: name,
                 description: description,
@@ -47,7 +51,11 @@ router.put('/pedit', async (req, res) => {
                 intakeDosing: intakeDosing
             },
             { new: true }
+<<<<<<< Updated upstream
         )
+=======
+        );
+>>>>>>> Stashed changes
 
         console.log("updateMed == ", updateMed);
 
