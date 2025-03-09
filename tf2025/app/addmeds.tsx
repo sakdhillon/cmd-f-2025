@@ -42,7 +42,7 @@ const AddMed = () => {
     description?: string;
   };
 
-  const handleEdit = (med) => {
+  const handleEdit = (med: any) => {
     setIsEdit(true);
     setMedName(med.name);
     setKeyMolecules(med.keyMol);
@@ -75,9 +75,9 @@ const AddMed = () => {
   //     }
   //   }, [med]);
 
-  const remove = async (id: string) => {
+  const remove = async (id: string, name: any) => {
     try {
-      await deleteMed(id, "aLove");
+      await deleteMed(id, "aLove", name); 
       console.log("Medication deleted successfully!");
       getAllMeds();
     } catch (error) {
@@ -98,6 +98,7 @@ const AddMed = () => {
 
     if (isEdit) {
       const updatedMed = await editMed({
+        // med: medName,
         inputData: medData,
       });
       console.log("updatedMed ======== ", updatedMed);
@@ -232,7 +233,7 @@ const AddMed = () => {
                     <Pressable onPress={() => handleEdit(med)}>
                       <MdEdit />
                     </Pressable>
-                    <Pressable onPress={() => remove(med._id)}>
+                    <Pressable onPress={() => remove(med._id, med.name)}>
                       <MdDelete />
                     </Pressable>
                   </View>

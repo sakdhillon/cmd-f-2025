@@ -92,11 +92,14 @@ router.post('/add', async (req, res) => {
 })
 
 // delete medication 
-router.delete('/delete', async (req, res) => {
+router.post('/delete', async (req, res) => {
+    console.log("hi");
     try {
         const id = req.body.id;
+        console.log(req.body.name);
         const username = "aLove";
-        const { name } = req.body;
+        const name  = req.body.name;
+
 
         if (!name) {
             return res.status(400).json({ message: "Medication name is required!" });

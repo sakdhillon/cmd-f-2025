@@ -62,10 +62,11 @@ export const editMed = async ({ inputData }) => {
 };
 
 
-export const deleteMed = async (id, username) => {
+export const deleteMed = async (id, username, name) => {
+  console.log(id);
   try {
-    const res = await axios.delete(`http://localhost:8080/addmeds/delete/med?medId=${id}&username=${username}`, {
-      withCredentials: true,
+    const res = await axios.post(`http://localhost:8080/addmeds/delete`, {
+      withCredentials: true, id, name
     });
     console.log("Deleted:", res.data);
     return res.data;
