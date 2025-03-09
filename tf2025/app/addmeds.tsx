@@ -8,10 +8,11 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import { defaultStyle, colors } from "@/styles/styles";
+import { Pressable } from "react-native";
 import { TextInput } from "react-native-paper";
 import Footer from "@/components/Footer";
 import { CiSquarePlus } from "react-icons/ci";
-import { MdEdit } from "react-icons/md";
+import { MdAllInbox, MdEdit, MdDelete } from "react-icons/md";
 import axios from "axios";
 import { useRouter } from "expo-router";
 import { getMed, addMed, editMed } from "../services/services";
@@ -27,9 +28,38 @@ const AddMed = () => {
   const [isEdit, setIsEdit] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
-  // const [medications, setMedications] = useState<Medication[]>([]);
-  const [showInput, setShowInput] = useState<boolean>(false);
-  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [showInput, setShowInput] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [allMeds, setAllMeds] = useState([]);
+
+  const getAllMeds = () => {
+    const url = "http://localhost:8080/tracker/allmeds";
+    axios
+      .get(url)
+      .then((res) => {
+        setAllMeds(res.data);
+        console.log("result == ", res);
+      })
+      .catch((err) => {
+        console.log("error with getting all meds: ", err);
+      });
+  };
+
+  useEffect(() => getAllMeds(), []);
+  useEffect(() => {
+    scrollToBottom(allMeds.length > 0); // Scroll only if there are meds
+  }, [allMeds]);
+
+  const handleEdit = (med) => {
+    setIsEdit(true);
+    setMedName(med.name);
+    setKeyMolecules(med.keyMol);
+    setDosing(med.intakeDosing);
+    setFrequency(med.intakeFrequency);
+    setAmount(med.amountpd);
+    setDescription(med.description);
+    setShowInput(true);
+  };
 
   const getUser = async () => {
     const fetchedMed = await getMed("aLove", "medName"); // Update this with actual userID and med name
@@ -44,6 +74,12 @@ const AddMed = () => {
     }
   };
 
+  //   useEffect(() => {
+  //     if (med) {
+  //       getUser();
+  //     }
+  //   }, [med]);
+
   const handleSubmit = async () => {
     const medData = {
       name: medName,
@@ -56,23 +92,40 @@ const AddMed = () => {
     console.log("medData", medData);
 
     if (isEdit) {
-      // Handle editing medication
-      const updatedMed = await editMed({ inputData: medData }); // This should call the backend to update
+      const updatedMed = await editMed({
+        med: medData.name,
+        inputData: medData,
+      });
       if (updatedMed) {
         console.log("Medication updated!");
+        setIsEdit(false);
       }
     } else {
-      // Handle adding new medication
       const newMed = await addMed({ inputData: medData });
       if (newMed) {
         console.log("New medication added!");
       }
     }
+    getAllMeds();
+    setMedName("");
+    setKeyMolecules("");
+    setDosing("");
+    setFrequency("");
+    setAmount("");
+    setDescription("");
+    setShowInput(false);
   };
 
-  const scrollToBottom = () => {
-    scrollViewRef.current?.scrollToEnd({ animated: false });
+  const scrollToBottom = (shouldScroll) => {
+    if (shouldScroll) {
+      scrollViewRef.current?.scrollToEnd({ animated: false });
+    }
   };
+
+  const handleDelete = (id) => {
+    axios.delete("http://localhost:8080/addmeds/delete");
+  };
+
   return (
     <View style={defaultStyle.container}>
       <View>
@@ -82,7 +135,7 @@ const AddMed = () => {
         style={{ flex: 1, padding: 10 }}
         ref={scrollViewRef}
         onContentSizeChange={scrollToBottom}
-        contentContainerStyle={{ paddingBottom: 80 }}
+        contentContainerStyle={{ paddingBottom: 500 }}
       >
         <View
           style={{
@@ -109,11 +162,9 @@ const AddMed = () => {
               Add Medication
             </Text>
           </View>
-
           <TouchableOpacity onPress={() => setShowInput(true)}>
             <CiSquarePlus size={40} color="black" />
           </TouchableOpacity>
-
           {showInput && (
             <View
               style={{
@@ -170,28 +221,31 @@ const AddMed = () => {
               </TouchableOpacity>
             </View>
           )}
-
           {isSaved && (
             <Text style={{ fontSize: 18, color: "green", marginTop: 20 }}>
               Medicine Saved Successfully!
             </Text>
           )}
-
-          {/* {medications.length > 0 && (
+          {allMeds.length > 0 && (
             <View style={{ marginTop: 30 }}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                 Medicines Added:
               </Text>
               <View style={{ marginTop: 10 }}>
-                {medications.map((med, index) => (
-                  <View key={index} style={styles.medItem}>
-                    <Text style={{ fontSize: 18 }}>{med.medName}</Text>
-                    <MdEdit />
+                {allMeds.map((med) => (
+                  <View key={med._id} style={styles.medItem}>
+                    <Text style={{ fontSize: 18 }}>{med.name}</Text>
+                    <Pressable onPress={() => handleEdit(med)}>
+                      <MdEdit />
+                    </Pressable>
+                    <Pressable onPress={() => handleDelete(med._id)}>
+                      <MdDelete />
+                    </Pressable>
                   </View>
                 ))}
               </View>
             </View>
-          )} */}
+          )}
         </View>
       </ScrollView>
       <Footer />
@@ -223,7 +277,7 @@ const styles = StyleSheet.create({
   medItem: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#c9d1c9",
     borderRadius: 10,
     marginBottom: 10,
     alignItems: "center",

@@ -6,7 +6,7 @@ router.get('/', (req, res) => {
     res.json({ message: 'Tracker route!' });
 });
 
-router.get('/AddMeds', async (req, res) => {
+router.get('/allmeds', async (req, res) => {
     let getUser = req.body.id
 
     await db.Medication.find(getUser).then(async (addmeds, err) => {
