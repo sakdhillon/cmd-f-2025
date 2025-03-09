@@ -1,7 +1,6 @@
 var mongoose = require('mongoose')
-// const {v4: uuidv4} = require('uuid')
 var Schema = mongoose.Schema
-// require('dotenv').config()
+require('dotenv').config()
 
 
 var userSchema = new Schema({
@@ -10,7 +9,7 @@ var userSchema = new Schema({
     lname: String,
     pname: String,
     age: Number,
-    pronouns: [String],   //check the type for this 
+    pronouns: [String],   
     identity: String,
     goal: String
 })
