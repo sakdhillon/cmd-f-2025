@@ -44,12 +44,6 @@ const AddMed = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (med) {
-  //     getUser();
-  //   }
-  // }, [med]);
-
   const handleSubmit = async () => {
     const medData = {
       name: medName,
@@ -59,6 +53,7 @@ const AddMed = () => {
       amountpd: amount,
       description,
     };
+    console.log("medData", medData);
 
     if (isEdit) {
       // Handle editing medication
