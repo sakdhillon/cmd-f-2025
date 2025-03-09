@@ -56,13 +56,6 @@ prompt = ChatPromptTemplate.from_messages(
 question_answer_chain = create_stuff_documents_chain(llm, prompt)
 rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 
-
-# question = "Hello how are you doing? Are there any communities in BC or Canada for trans people? If yes, provide me with some...\n"
-# print(question)
-
-# response = rag_chain.invoke({"input":question})
-# print(response["answer"])
-
 def load_embeddings():
     if os.path.exists(VECTORSTORE_DIR):
         vectorstore = Chroma(persist_directory=VECTORSTORE_DIR, embedding_function=GoogleGenerativeAIEmbeddings(model="models/embedding-001"))
