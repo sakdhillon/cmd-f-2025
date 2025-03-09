@@ -5,30 +5,33 @@ import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { colors, defaultStyle } from "../styles/styles";
 import Footer from "../components/Footer";
+import { getInfo } from '../services/user';
 
 export default function Index() {
   const [message, setMessage] = useState("");
+  const [prefName, setPrefName] = useState('');
   const router = useRouter();
 
-  const fetchMessage = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/page");
-      setMessage(response.data.message);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setMessage("Failed to fetch message");
-    }
-  };
+  const getUser = async () => {
+    const fetchedUser = await getInfo(); 
+    console.log("fetchedUser:", fetchedUser);
 
+    if (fetchedUser) {
+        setPrefName(fetchedUser.pname);
+      } else {
+          router.push('/')
+      }
+  }
+ 
   useEffect(() => {
-    fetchMessage();
-  }, []);
+      getUser()
+  }, [])
 
   return (
     <View style={defaultStyle.container}>
       <Header back={"/"} />
       <ScrollView contentContainerStyle={{ flex: 1, alignItems: "center" }}>
-        <Text
+        {/* <Text
           style={{
             fontSize: 20,
             color: colors.color2,
@@ -39,7 +42,7 @@ export default function Index() {
           }}
         >
           {message || "Fetching message..."}
-        </Text>
+        </Text> */}
 
         <TouchableOpacity onPress={() => router.push("./chat")}>
           <View
@@ -61,7 +64,7 @@ export default function Index() {
                 alignSelf: "center",
               }}
             />
-            <Text style={{ fontSize: 25 }}>Good Morning 🌈</Text>
+            <Text style={{ fontSize: 25 }}>Good Morning {prefName} 🌈</Text>
           </View>
         </TouchableOpacity>
 
