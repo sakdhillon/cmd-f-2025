@@ -147,8 +147,7 @@ const AddMed = () => {
             alignItems: "center",
           }}
         >
-    
-    <View
+          <View
             style={{
               flexDirection: "row",
               width: "100%",
@@ -167,41 +166,32 @@ const AddMed = () => {
                 alignSelf: "center",
               }}
             />
-            <Text style={{ fontSize: 25 }}>Your Medication  🌈</Text>
+            <Text style={{ fontSize: 25 }}>Your Medication 🌈</Text>
           </View>
 
-
-
-
-
-
-
-
-
-
           <View
-          style={{flexDirection: "row", 
-            justifyContent: "space-between",
-            alignItems: "center", // Center items vertically
-            paddingHorizontal: 10, // Add some spacing
-            paddingVertical: 5, // Adjust padding
-          }} >
-
-          <Text
-          style={{
-            fontSize: 20,
-            fontWeight: "bold",
-            color: colors.color3,
-
-
-          }}
-          
-          > Add a New Medication </Text>  
-          <TouchableOpacity onPress={() => setShowInput(true)}>
-            <CiSquarePlus size={60} color="black" />
-          </TouchableOpacity>
-          </View>             
-
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center", // Center items vertically
+              paddingHorizontal: 10, // Add some spacing
+              paddingVertical: 5, // Adjust padding
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: colors.color3,
+              }}
+            >
+              {" "}
+              Add a New Medication{" "}
+            </Text>
+            <TouchableOpacity onPress={() => setShowInput(true)}>
+              <CiSquarePlus size={60} color="black" />
+            </TouchableOpacity>
+          </View>
 
           {showInput && (
             <View
@@ -266,24 +256,36 @@ const AddMed = () => {
           )}
           {allMeds.length > 0 && (
             <View style={{ marginTop: 30, width: "100%" }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold", textAlign:"left" }}>
+              <Text
+                style={{ fontSize: 20, fontWeight: "bold", textAlign: "left" }}
+              >
                 Your Current List of Medications
               </Text>
               <View style={{ marginTop: 20 }}>
                 {allMeds.map((med) => (
                   <View key={med._id} style={styles.medItem}>
-                    <Text style={{ fontSize: 18, color: "white" }}>{med.name}</Text>
-                    <View style={{ flexDirection: "row", padding:20,marginLeft:10, }}>
-                    <Pressable
-                    style={{ color:"white", marginRight: 20 }}
-                    onPress={() => getUser(med)}>
-                      <MdEdit />
-                    </Pressable>
-                    <Pressable
-                     style={{ color:"white", marginRight: 20 }}
-                    onPress={() => remove(med._id)}>
-                      <MdDelete />
-                    </Pressable>
+                    <Text style={{ fontSize: 18, color: "white" }}>
+                      {med.name}
+                    </Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        padding: 20,
+                        marginLeft: 10,
+                      }}
+                    >
+                      <Pressable
+                        style={{ color: "white", marginRight: 20 }}
+                        onPress={() => handleEdit(med)}
+                      >
+                        <MdEdit />
+                      </Pressable>
+                      <Pressable
+                        style={{ color: "white", marginRight: 20 }}
+                        onPress={() => remove(med._id, med.name)}
+                      >
+                        <MdDelete />
+                      </Pressable>
                     </View>
                   </View>
                 ))}
