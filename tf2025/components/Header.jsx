@@ -15,7 +15,7 @@ const router = useRouter();
    
     <View
     style={{
-    position:"relative",
+
       alignSelf: "center",
       flexDirection: "row",
       justifyContent: "flex-start",
@@ -23,7 +23,7 @@ const router = useRouter();
       height:65,
       backgroundColor:colors.color4,
       width:"100%",
-     
+ 
     }}
   >
 
@@ -39,7 +39,7 @@ const router = useRouter();
    >
     <Avatar.Icon icon="arrow-left"
     color={'white'}
-    style={back && {backgroundColor:'white'}}
+    style={{ backgroundColor:colors.color4,marginTop:15,}}
     size={40}/>
    </TouchableOpacity>
    )}

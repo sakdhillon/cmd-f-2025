@@ -4,10 +4,14 @@ import { View, Text, TouchableOpacity
 import React from 'react'
 import { colors } from '@/styles/styles'
 import { Avatar } from 'react-native-paper'
+import { useRouter } from 'expo-router'
 
 const Footer = ({activeroute='/index'}
 
 ) => {
+
+  router=useRouter()
+  
   return (
     <View
     style={{

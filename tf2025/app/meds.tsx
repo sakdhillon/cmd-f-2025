@@ -102,7 +102,8 @@ return (
   label="Description"
   value={description}
   onChangeText={text => setdescription(text)}
-  style={{ marginBottom: 15,
+  style={{ 
+    marginBottom: 15,
     borderRadius:30,
     color:"indigo",
 
