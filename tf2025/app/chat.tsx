@@ -14,7 +14,7 @@ import Header from "@/components/Header";
 import { colors, defaultStyle } from "../styles/styles";
 import { IoSendSharp } from "react-icons/io5";
 import { MdAutoDelete } from "react-icons/md";
-
+import Footer from "@/components/Footer";
 import axios from "axios";
 
 const chat = () => {
@@ -83,6 +83,17 @@ const chat = () => {
       style={{ flex: 1 }}
     >
       <Header back={"/"} />
+
+    
+          <View style={{ 
+           alignItems: 'center',
+           marginBottom: 10,}}>
+            <Text style={{ 
+            fontSize: 28,
+            fontWeight: 'bold',
+            color: colors.color3,}}>Chat</Text>
+          </View>
+
       <ScrollView
         style={{ flex: 1, padding: 10 }}
         ref={scrollViewRef}
@@ -95,7 +106,7 @@ const chat = () => {
               <View
                 style={{
                   alignSelf: "flex-end",
-                  backgroundColor: "#c4eba7",
+                  backgroundColor: "#d4fff3",
                   padding: 10,
                   borderRadius: 15,
                   maxWidth: "80%",
@@ -116,7 +127,7 @@ const chat = () => {
                   maxWidth: "80%",
                 }}
               >
-                <Text style={{ fontSize: 16 }}>{chat.botResponse}</Text>
+                <Text style={{ fontSize: 16, }}>{chat.botResponse}</Text>
               </View>
             )}
           </View>
@@ -131,7 +142,7 @@ const chat = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundColor: "white",
+          backgroundColor: colors.color4,
           padding: 10,
           borderTopWidth: 1,
           borderColor: "#ddd",
@@ -144,7 +155,7 @@ const chat = () => {
             padding: 10,
             borderRadius: 8,
             borderColor: "#ccc",
-            backgroundColor: "#fff",
+            backgroundColor: "white",
             fontSize: 16,
           }}
           value={question}
@@ -156,7 +167,7 @@ const chat = () => {
         <Pressable
           onPress={() => getChatResponse(question)}
           style={{
-            backgroundColor: "#007bff",
+            backgroundColor:colors.color4,
             padding: 10,
             borderRadius: 8,
             marginLeft: 10,
@@ -167,16 +178,22 @@ const chat = () => {
         <Pressable
           onPress={deleteChatHistory}
           style={{
-            backgroundColor: "#007bff",
+            backgroundColor: colors.color4,
             padding: 10,
             borderRadius: 8,
             marginLeft: 10,
+           
+
           }}
         >
-          <MdAutoDelete color="white" size={20} />
+          <MdAutoDelete
+          color="white" size={20} />
         </Pressable>
+        
       </View>
+  
     </KeyboardAvoidingView>
+    
   );
 };
 

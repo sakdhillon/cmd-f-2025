@@ -53,7 +53,7 @@ const SignUp = () => {
 
   return (
     <View style={defaultStyle.container}>
-      <View style={{ paddingTop: 60 }}>
+      <View style={{ paddingTop: 0 }}>
         <Header back={"/"} />
       </View>
 
@@ -69,7 +69,7 @@ const SignUp = () => {
               <Text style={{ 
               fontSize: 28,
               fontWeight: 'bold',
-              color: colors.color3,}}>Sign Up</Text>
+              color: colors.color3,}}>Edit Profile</Text>
             </View>
 
         <View style={styles.inputContainer}>

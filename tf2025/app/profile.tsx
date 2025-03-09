@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { defaultStyle, colors } from '@/styles/styles';
 import Header from '@/components/Header';
@@ -7,6 +7,7 @@ import { TextInput } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { getInfo } from '../services/services';
 import axios from "axios";
+
 
 const Profile = () => {
   //Currently hardcoded values to check styling
@@ -49,14 +50,16 @@ const Profile = () => {
   
 
     <View style={defaultStyle.container}>
-    <View style={{ paddingTop: 60 }}>
+
       <Header back={"/"} />
-    </View>
+      <ScrollView contentContainerStyle={{ paddingBottom: 100}}>
     <View style={{
       flex:1,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: colors.color1,
       padding: 20,
     }}>
+
+
 
 
       <View style={{ 
@@ -67,6 +70,15 @@ const Profile = () => {
         fontWeight: 'bold',
         color: colors.color3,}}>Profile</Text>
       </View>
+
+
+
+      <Image source={require('../assets/images/ada.jpeg')} 
+      style={{width: 100, 
+      height: 100,
+      alignSelf: 'center',
+      marginTop: 10,
+      borderRadius: 50, marginBottom: 30}} />
 
       <View style={{ 
       
@@ -103,6 +115,8 @@ const Profile = () => {
       </TouchableOpacity>
 
       </View>
+
+      </ScrollView>
       <Footer/>
       
     </View>
@@ -112,7 +126,7 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.color1,
     padding: 20,
   },
  
@@ -124,7 +138,7 @@ const styles = StyleSheet.create({
   },
   profileValue: {
     fontSize: 14,
-    marginBottom: 10,
+   
     color: '#ffffff',
     backgroundColor:colors.color4,
     padding:10,
@@ -135,7 +149,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
-    marginTop: 5,
+    marginTop:-10,
     alignItems: 'center',
   },
   buttonText: {

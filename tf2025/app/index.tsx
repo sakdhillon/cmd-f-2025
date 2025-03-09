@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
-export default function Index() {
+export default function Index({ resizeMode = "contain" }) {
   const router = useRouter();
 
   useEffect(() => {
@@ -19,6 +19,7 @@ export default function Index() {
           height: 200,
           resizeMode: "contain",
         borderRadius:20}}
+        resizeMode={resizeMode} // Use the resizeMode prop
       />
     </View>
   );

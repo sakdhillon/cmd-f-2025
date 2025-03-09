@@ -1,6 +1,7 @@
 import {
   View,
   Text,
+  Image,
   TouchableOpacity,
   StyleSheet,
   ScrollView,
@@ -134,36 +135,74 @@ const AddMed = () => {
         style={{ flex: 1, padding: 10 }}
         ref={scrollViewRef}
         // onContentSizeChange={scrollToBottom}
+        // onContentSizeChange={scrollToBottom}
         contentContainerStyle={{ paddingBottom: 500 }}
       >
         <View
           style={{
             flex: 1,
-            backgroundColor: "#FFFFFF",
+            backgroundColor: colors.color1,
             padding: 20,
             width: "100%",
             alignItems: "center",
           }}
         >
-          <View
+    
+    <View
             style={{
+              flexDirection: "row",
+              width: "100%",
+              minHeight: 200,
+              justifyContent: "space-between",
               alignItems: "center",
-              marginBottom: 10,
+              paddingHorizontal: 30,
+              marginTop: 10,
             }}
           >
-            <Text
+            <Image
+              source={require("../assets/images/Self-love.png")}
               style={{
-                fontSize: 28,
-                fontWeight: "bold",
-                color: colors.color3,
+                width: 150,
+                height: 200,
+                alignSelf: "center",
               }}
-            >
-              Add Medication
-            </Text>
+            />
+            <Text style={{ fontSize: 25 }}>Your Medication  🌈</Text>
           </View>
+
+
+
+
+
+
+
+
+
+
+          <View
+          style={{flexDirection: "row", 
+            justifyContent: "space-between",
+            alignItems: "center", // Center items vertically
+            paddingHorizontal: 10, // Add some spacing
+            paddingVertical: 5, // Adjust padding
+          }} >
+
+          <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "bold",
+            color: colors.color3,
+
+
+          }}
+          
+          > Add a New Medication </Text>  
           <TouchableOpacity onPress={() => setShowInput(true)}>
-            <CiSquarePlus size={40} color="black" />
+            <CiSquarePlus size={60} color="black" />
           </TouchableOpacity>
+          </View>             
+
+
           {showInput && (
             <View
               style={{
@@ -226,20 +265,26 @@ const AddMed = () => {
             </Text>
           )}
           {allMeds.length > 0 && (
-            <View style={{ marginTop: 30 }}>
-              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-                Medicines Added:
+            <View style={{ marginTop: 30, width: "100%" }}>
+              <Text style={{ fontSize: 20, fontWeight: "bold", textAlign:"left" }}>
+                Your Current List of Medications
               </Text>
-              <View style={{ marginTop: 10 }}>
+              <View style={{ marginTop: 20 }}>
                 {allMeds.map((med) => (
                   <View key={med._id} style={styles.medItem}>
-                    <Text style={{ fontSize: 18 }}>{med.name}</Text>
-                    <Pressable onPress={() => handleEdit(med)}>
+                    <Text style={{ fontSize: 18, color: "white" }}>{med.name}</Text>
+                    <View style={{ flexDirection: "row", padding:20,marginLeft:10, }}>
+                    <Pressable
+                    style={{ color:"white", marginRight: 20 }}
+                    onPress={() => getUser(med)}>
                       <MdEdit />
                     </Pressable>
-                    <Pressable onPress={() => remove(med._id, med.name)}>
+                    <Pressable
+                     style={{ color:"white", marginRight: 20 }}
+                    onPress={() => remove(med._id)}>
                       <MdDelete />
                     </Pressable>
+                    </View>
                   </View>
                 ))}
               </View>
@@ -276,7 +321,7 @@ const styles = StyleSheet.create({
   medItem: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: "#c9d1c9",
+    backgroundColor: colors.color4,
     borderRadius: 10,
     marginBottom: 10,
     alignItems: "center",

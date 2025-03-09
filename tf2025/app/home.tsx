@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <View style={defaultStyle.container}>
-      <Header back={"/"} />
+      <Header back={false} />
       <ScrollView
         contentContainerStyle={{
           flex: 1,
@@ -142,14 +142,14 @@ export default function Home() {
                 marginRight: 20,
               }}
             >
-              Description of Medicine
+              Hormone replacement therapy for  oestrogen deficiency. 
             </Text>
 
             <View
               style={{
                 flexDirection: "row",
                 marginTop: 20,
-                width: "100%",
+                width: "100%",marginLeft:10,
               }}
             >
               <TouchableOpacity
@@ -238,7 +238,7 @@ export default function Home() {
                 marginBottom: 5,
               }}
             >
-              Medicine Reminder
+             Chat to Rainbow 
             </Text>
             <Text
               style={{
@@ -247,7 +247,7 @@ export default function Home() {
                 marginBottom: 10,
               }}
             >
-              Description of Medicine
+             Talk to Rainbow to share your thoughts and feelings
             </Text>
 
             <TouchableOpacity
