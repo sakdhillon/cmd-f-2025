@@ -51,7 +51,6 @@ const AddMed = () => {
       .get(url)
       .then((res) => {
         setAllMeds(res.data);
-        console.log("result == ", res);
       })
       .catch((err) => {
         console.log("error with getting all meds: ", err);
@@ -112,21 +111,28 @@ const AddMed = () => {
       if (updatedMed) {
         console.log("Medication updated!");
         setIsEdit(false);
+        setMedName("");
+        setKeyMolecules("");
+        setDosing("");
+        setFrequency("");
+        setAmount("");
+        setDescription("");
+        setShowInput(false);
       }
     } else {
       const newMed = await addMed({ inputData: medData });
       if (newMed) {
         console.log("New medication added!");
+        setMedName("");
+        setKeyMolecules("");
+        setDosing("");
+        setFrequency("");
+        setAmount("");
+        setDescription("");
+        setShowInput(false);
       }
     }
     getAllMeds();
-    setMedName("");
-    setKeyMolecules("");
-    setDosing("");
-    setFrequency("");
-    setAmount("");
-    setDescription("");
-    setShowInput(false);
   };
 
   const scrollToBottom = (shouldScroll: boolean) => {
