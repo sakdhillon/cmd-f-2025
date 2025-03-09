@@ -35,7 +35,40 @@ router.get('/getuser', async (req, res) => {
 
 // REGISTRATION 
 // one post request and thats it? - take to login page 
+router.post('/signup', async (req, res) => {
+    try {
+        const { username, fname, lname, pname, age, pronouns, identity, goal } = req.body;
 
+        if (!username) {
+            return res.status(400).json({ message: 'Username is required.' });
+        }
+
+        // checking username
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Username already exists.' });
+        }
+
+        const newUser = new User({
+            username,
+            fname,
+            lname,
+            pname,
+            age,
+            pronouns,
+            identity,
+            goal
+        });
+
+        await newUser.save();
+
+        res.status(200).json({ message: 'User created successfully' });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+    }
+});
 //
 
 module.exports = router; 
