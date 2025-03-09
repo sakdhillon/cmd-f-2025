@@ -93,9 +93,9 @@ const AddMed = () => {
 
   const remove = async (id: string) => {
     try {
-      await deleteMed(id, "aLove"); // Replace "aLove" with the actual username if dynamic
+      await deleteMed(id, "aLove"); 
       console.log("Medication deleted successfully!");
-      getAllMeds(); // Refresh the list after deletion
+      getAllMeds(); 
     } catch (error) {
       console.error("Error deleting medication:", error);
     }

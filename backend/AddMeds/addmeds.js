@@ -30,18 +30,21 @@ router.get('/edit', async (req, res) => {
 })
 
 // for the medication that we are editing 
-router.post('/edit', async (req, res) => {
+router.put('/pedit', async (req, res) => {
     try {
-        const username = req.user?.username || req.session?.username;
-        const { med, inputData } = req.body
+        const username = "aLove";
+        const { name, description, amountpd, intakeFrequency, keyMol, intakeDosing } = req.body;
 
-        if (!inputData) {
-            return res.status(400).json({ message: "The new change is empty!" })
-        }
-        const updateMed = await db.Medication.findByIdAndUpdate(
-            { username, name: med },
-            { $set: inputData },
-            { new: true }
+        const updateMed = await db.Medication.findOneAndUpdate(
+            { name: name, username: username },  
+            {
+                description: description,
+                amountpd: amountpd,
+                intakeFrequency: intakeFrequency,
+                keyMol: keyMol,
+                intakeDosing: intakeDosing
+            },
+            { new: true } 
         );
 
         console.log("updateMed == ", updateMed);
@@ -49,14 +52,12 @@ router.post('/edit', async (req, res) => {
         if (!updateMed) {
             return res.status(404).json({ message: "Medication not found!" });
         }
-        res.status(200).json({ message: "Medication Updated!", data: updatedMed });
-    }
-    catch (err) {
-        console.log("err == ", err);
+
+        res.status(200).json({ message: "Medication Updated!", data: updateMed });
+    } catch (err) {
         res.status(500).json(err);
     }
-
-})
+});
 
 // new medication adding
 router.post('/add', async (req, res) => {
