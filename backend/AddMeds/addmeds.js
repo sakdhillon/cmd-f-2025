@@ -36,7 +36,7 @@ router.put('/pedit', async (req, res) => {
         const { name, description, amountpd, intakeFrequency, keyMol, intakeDosing } = req.body;
 
         const updateMed = await db.Medication.findOneAndUpdate(
-            { name: name, username: username },  
+            { name: name, username: username },
             {
                 description: description,
                 amountpd: amountpd,
@@ -44,7 +44,7 @@ router.put('/pedit', async (req, res) => {
                 keyMol: keyMol,
                 intakeDosing: intakeDosing
             },
-            { new: true } 
+            { new: true }
         );
 
         console.log("updateMed == ", updateMed);

@@ -68,22 +68,6 @@ const AddMed = () => {
   };
 
   useEffect(() => getAllMeds(), []);
-  useEffect(() => {
-    scrollToBottom(allMeds.length > 0); // Scroll only if there are meds
-  }, [allMeds]);
-
-  const getUser = async () => {
-    const fetchedMed = await getMed("aLove", "medName"); // Update this with actual userID and med name
-    if (fetchedMed) {
-      setIsEdit(true);
-      setMedName(fetchedMed.name);
-      setKeyMolecules(fetchedMed.keyMol);
-      setDosing(fetchedMed.intakeDosing);
-      setFrequency(fetchedMed.intakeFrequency);
-      setAmount(fetchedMed.amountpd);
-      setDescription(fetchedMed.description);
-    }
-  };
 
   //   useEffect(() => {
   //     if (med) {
@@ -93,9 +77,9 @@ const AddMed = () => {
 
   const remove = async (id: string) => {
     try {
-      await deleteMed(id, "aLove"); 
+      await deleteMed(id, "aLove");
       console.log("Medication deleted successfully!");
-      getAllMeds(); 
+      getAllMeds();
     } catch (error) {
       console.error("Error deleting medication:", error);
     }
@@ -114,39 +98,25 @@ const AddMed = () => {
 
     if (isEdit) {
       const updatedMed = await editMed({
-        med: medName,
         inputData: medData,
       });
+      console.log("updatedMed ======== ", updatedMed);
       if (updatedMed) {
         console.log("Medication updated!");
+        setAllMeds((prevMeds) =>
+          prevMeds.map((med) => (med._id === updatedMed._id ? updatedMed : med))
+        );
+        medData;
         setIsEdit(false);
-        setMedName("");
-        setKeyMolecules("");
-        setDosing("");
-        setFrequency("");
-        setAmount("");
-        setDescription("");
         setShowInput(false);
       }
     } else {
       const newMed = await addMed({ inputData: medData });
       if (newMed) {
         console.log("New medication added!");
-        setMedName("");
-        setKeyMolecules("");
-        setDosing("");
-        setFrequency("");
-        setAmount("");
-        setDescription("");
+        setAllMeds((prevMeds) => [...prevMeds, newMed]);
         setShowInput(false);
       }
-    }
-    getAllMeds();
-  };
-
-  const scrollToBottom = (shouldScroll: boolean) => {
-    if (shouldScroll) {
-      scrollViewRef.current?.scrollToEnd({ animated: false });
     }
   };
 
@@ -158,7 +128,7 @@ const AddMed = () => {
       <ScrollView
         style={{ flex: 1, padding: 10 }}
         ref={scrollViewRef}
-        onContentSizeChange={scrollToBottom}
+        // onContentSizeChange={scrollToBottom}
         contentContainerStyle={{ paddingBottom: 500 }}
       >
         <View
@@ -259,7 +229,7 @@ const AddMed = () => {
                 {allMeds.map((med) => (
                   <View key={med._id} style={styles.medItem}>
                     <Text style={{ fontSize: 18 }}>{med.name}</Text>
-                    <Pressable onPress={() => getUser(med)}>
+                    <Pressable onPress={() => handleEdit(med)}>
                       <MdEdit />
                     </Pressable>
                     <Pressable onPress={() => remove(med._id)}>

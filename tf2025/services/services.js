@@ -52,10 +52,9 @@ export const addMed = async ({ inputData }) => {
 
 export const editMed = async ({ inputData }) => {
   try {
-    const res = await axios.put('http://localhost:8080/addmeds/edit', inputData);
-    console.log("Raw response:", res.data);
+    const res = await axios.put('http://localhost:8080/addmeds/pedit', inputData);
     return res.data;
-    
+
   } catch (err) {
     console.error('Error adding medication:', err);
     throw err;
