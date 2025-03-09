@@ -5,75 +5,79 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import { defaultStyle, colors } from "@/styles/styles";
 import { TextInput } from "react-native-paper";
 import Footer from "@/components/Footer";
 import { CiSquarePlus } from "react-icons/ci";
 import { MdEdit } from "react-icons/md";
-
-interface Medication {
-  medName: string;
-  keyMolecules: string;
-  dosing: string;
-  amount: string;
-  frequency: string;
-  description: string;
-}
+import axios from "axios";
+import { useRouter } from "expo-router";
+import { getMed, addMed, editMed } from "../services/services";
 
 const AddMed = () => {
-  const [medName, setMedName] = useState<string>("");
-  const [keyMolecules, setKeyMolecules] = useState<string>("");
-  const [dosing, setDosing] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
-  const [frequency, setFrequency] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-
-  const [medications, setMedications] = useState<Medication[]>([]);
-  const [showInput, setShowInput] = useState<boolean>(false);
-  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const router = useRouter();
+  const [medName, setMedName] = useState("");
+  const [keyMolecules, setKeyMolecules] = useState("");
+  const [dosing, setDosing] = useState("");
+  const [amount, setAmount] = useState("");
+  const [frequency, setFrequency] = useState("");
+  const [description, setDescription] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleAddMedicine = () => {
-    if (
-      medName.trim() &&
-      keyMolecules.trim() &&
-      dosing.trim() &&
-      amount.trim() &&
-      frequency.trim() &&
-      description.trim()
-    ) {
-      setMedications([
-        ...medications,
-        {
-          medName,
-          keyMolecules,
-          dosing,
-          amount,
-          frequency,
-          description,
-        },
-      ]);
+  // const [medications, setMedications] = useState<Medication[]>([]);
+  const [showInput, setShowInput] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
 
-      setIsSaved(true);
-      setShowInput(false);
+  const getUser = async () => {
+    const fetchedMed = await getMed("aLove", "medName"); // Update this with actual userID and med name
+    if (fetchedMed) {
+      setIsEdit(true);
+      setMedName(fetchedMed.name);
+      setKeyMolecules(fetchedMed.keyMol);
+      setDosing(fetchedMed.intakeDosing);
+      setFrequency(fetchedMed.intakeFrequency);
+      setAmount(fetchedMed.amountpd);
+      setDescription(fetchedMed.description);
+    }
+  };
 
-      setMedName("");
-      setKeyMolecules("");
-      setDosing("");
-      setAmount("");
-      setFrequency("");
-      setDescription("");
+  // useEffect(() => {
+  //   if (med) {
+  //     getUser();
+  //   }
+  // }, [med]);
+
+  const handleSubmit = async () => {
+    const medData = {
+      name: medName,
+      keyMol: keyMolecules,
+      intakeDosing: dosing,
+      intakeFrequency: frequency,
+      amountpd: amount,
+      description,
+    };
+
+    if (isEdit) {
+      // Handle editing medication
+      const updatedMed = await editMed({ inputData: medData }); // This should call the backend to update
+      if (updatedMed) {
+        console.log("Medication updated!");
+      }
     } else {
-      alert("Please fill out all fields");
+      // Handle adding new medication
+      const newMed = await addMed({ inputData: medData });
+      if (newMed) {
+        console.log("New medication added!");
+      }
     }
   };
 
   const scrollToBottom = () => {
     scrollViewRef.current?.scrollToEnd({ animated: false });
   };
-
   return (
     <View style={defaultStyle.container}>
       <View>
@@ -164,7 +168,7 @@ const AddMed = () => {
               />
 
               <TouchableOpacity
-                onPress={handleAddMedicine}
+                onPress={handleSubmit}
                 style={styles.saveButton}
               >
                 <Text style={styles.saveButtonText}>Save</Text>
@@ -178,7 +182,7 @@ const AddMed = () => {
             </Text>
           )}
 
-          {medications.length > 0 && (
+          {/* {medications.length > 0 && (
             <View style={{ marginTop: 30 }}>
               <Text style={{ fontSize: 20, fontWeight: "bold" }}>
                 Medicines Added:
@@ -192,7 +196,7 @@ const AddMed = () => {
                 ))}
               </View>
             </View>
-          )}
+          )} */}
         </View>
       </ScrollView>
       <Footer />
