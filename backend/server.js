@@ -29,8 +29,8 @@ app.use('/user', signup);
 const chat = require('./Chat/chat');
 app.use('/chat', chat);
 
-const meds = require('./Meds/meds');
-app.use('/meds', meds);
+const addmeds = require('./AddMeds/addmeds');
+app.use('/addmeds', addmeds);
 
 const tracker = require('./Tracker/tracker');
 app.use('/tracker', tracker);

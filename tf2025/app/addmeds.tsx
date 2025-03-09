@@ -1,0 +1,237 @@
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
+import React, { useState, useRef } from "react";
+import Header from "@/components/Header";
+import { defaultStyle, colors } from "@/styles/styles";
+import { TextInput } from "react-native-paper";
+import Footer from "@/components/Footer";
+import { CiSquarePlus } from "react-icons/ci";
+import { MdEdit } from "react-icons/md";
+
+interface Medication {
+  medName: string;
+  keyMolecules: string;
+  dosing: string;
+  amount: string;
+  frequency: string;
+  description: string;
+}
+
+const AddMed = () => {
+  const [medName, setMedName] = useState<string>("");
+  const [keyMolecules, setKeyMolecules] = useState<string>("");
+  const [dosing, setDosing] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+  const [frequency, setFrequency] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+
+  const [medications, setMedications] = useState<Medication[]>([]);
+  const [showInput, setShowInput] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const scrollViewRef = useRef<ScrollView>(null);
+
+  const handleAddMedicine = () => {
+    if (
+      medName.trim() &&
+      keyMolecules.trim() &&
+      dosing.trim() &&
+      amount.trim() &&
+      frequency.trim() &&
+      description.trim()
+    ) {
+      setMedications([
+        ...medications,
+        {
+          medName,
+          keyMolecules,
+          dosing,
+          amount,
+          frequency,
+          description,
+        },
+      ]);
+
+      setIsSaved(true);
+      setShowInput(false);
+
+      setMedName("");
+      setKeyMolecules("");
+      setDosing("");
+      setAmount("");
+      setFrequency("");
+      setDescription("");
+    } else {
+      alert("Please fill out all fields");
+    }
+  };
+
+  const scrollToBottom = () => {
+    scrollViewRef.current?.scrollToEnd({ animated: false });
+  };
+
+  return (
+    <View style={defaultStyle.container}>
+      <View>
+        <Header back={"/"} />
+      </View>
+      <ScrollView
+        style={{ flex: 1, padding: 10 }}
+        ref={scrollViewRef}
+        onContentSizeChange={scrollToBottom}
+        contentContainerStyle={{ paddingBottom: 80 }}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#FFFFFF",
+            padding: 20,
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
+          <View
+            style={{
+              alignItems: "center",
+              marginBottom: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 28,
+                fontWeight: "bold",
+                color: colors.color3,
+              }}
+            >
+              Add Medication
+            </Text>
+          </View>
+
+          <TouchableOpacity onPress={() => setShowInput(true)}>
+            <CiSquarePlus size={40} color="black" />
+          </TouchableOpacity>
+
+          {showInput && (
+            <View
+              style={{
+                marginTop: 20,
+                padding: 20,
+                backgroundColor: "#FFFFFF",
+                borderRadius: 20,
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <TextInput
+                label="Name of Medication"
+                value={medName}
+                onChangeText={setMedName}
+                style={styles.input}
+              />
+              <TextInput
+                label="Key Molecules"
+                value={keyMolecules}
+                onChangeText={setKeyMolecules}
+                style={styles.input}
+              />
+              <TextInput
+                label="Dosing"
+                value={dosing}
+                onChangeText={setDosing}
+                style={styles.input}
+              />
+              <TextInput
+                label="Amount"
+                value={amount}
+                onChangeText={setAmount}
+                style={styles.input}
+              />
+              <TextInput
+                label="Frequency"
+                value={frequency}
+                onChangeText={setFrequency}
+                style={styles.input}
+              />
+              <TextInput
+                label="Description"
+                value={description}
+                onChangeText={setDescription}
+                style={styles.input}
+              />
+
+              <TouchableOpacity
+                onPress={handleAddMedicine}
+                style={styles.saveButton}
+              >
+                <Text style={styles.saveButtonText}>Save</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {isSaved && (
+            <Text style={{ fontSize: 18, color: "green", marginTop: 20 }}>
+              Medicine Saved Successfully!
+            </Text>
+          )}
+
+          {medications.length > 0 && (
+            <View style={{ marginTop: 30 }}>
+              <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                Medicines Added:
+              </Text>
+              <View style={{ marginTop: 10 }}>
+                {medications.map((med, index) => (
+                  <View key={index} style={styles.medItem}>
+                    <Text style={{ fontSize: 18 }}>{med.medName}</Text>
+                    <MdEdit />
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+      <Footer />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  input: {
+    marginBottom: 15,
+    borderRadius: 20,
+    color: "indigo",
+    backgroundColor: "white",
+    width: "80%",
+  },
+  saveButton: {
+    backgroundColor: colors.color1,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 15,
+    alignItems: "center",
+  },
+  saveButtonText: {
+    color: "black",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  medItem: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 10,
+    marginBottom: 10,
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});
+
+export default AddMed;

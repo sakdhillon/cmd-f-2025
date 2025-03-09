@@ -25,7 +25,6 @@ const meds = () => {
   const scrollToBottom = () => {
     scrollViewRef.current?.scrollToEnd({ animated: false });
   };
-
   return (
     <View style={defaultStyle.container}>
       <View style={{ paddingTop: 60 }}>
