@@ -16,6 +16,16 @@ app.get('/page', (req, res) => {
     res.json({ message: 'Hello from the backend!' });
 });
 
+const profile = require('./Profile/profile');
+app.use('/profile', profile);
+
+const meds = require('./Meds/meds');
+app.use('/meds', meds);
+
+const tracker = require('./Tracker/tracker');
+app.use('/tracker', tracker);
+
+
 // initializing the database
 const MongoStore = require('connect-mongo')
 const { initializeDB } = require('./model/db.js');
