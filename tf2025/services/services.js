@@ -67,7 +67,7 @@ export const deleteMed = async (id, username) => {
       withCredentials: true,
     });
     console.log("Deleted:", res.data);
-    return res.data; 
+    return res.data;
   } catch (error) {
     console.error("Error deleting medication:", error.response?.data || error.message);
     throw error;

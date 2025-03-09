@@ -41,9 +41,19 @@ const AddMed = () => {
     amountpd?: string;
     description?: string;
   };
-  
+
+  const handleEdit = (med) => {
+    setIsEdit(true);
+    setMedName(med.name);
+    setKeyMolecules(med.keyMol);
+    setDosing(med.intakeDosing);
+    setFrequency(med.intakeFrequency);
+    setAmount(med.amountpd);
+    setDescription(med.description);
+    setShowInput(true);
+  };
+
   const [allMeds, setAllMeds] = useState<Med[]>([]);
-  
 
   const getAllMeds = () => {
     const url = "http://localhost:8080/tracker/allmeds";
@@ -90,7 +100,6 @@ const AddMed = () => {
       console.error("Error deleting medication:", error);
     }
   };
-  
 
   const handleSubmit = async () => {
     const medData = {
@@ -140,7 +149,6 @@ const AddMed = () => {
       scrollViewRef.current?.scrollToEnd({ animated: false });
     }
   };
-
 
   return (
     <View style={defaultStyle.container}>

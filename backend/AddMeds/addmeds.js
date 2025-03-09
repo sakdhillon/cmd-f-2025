@@ -44,12 +44,15 @@ router.post('/edit', async (req, res) => {
             { new: true }
         );
 
+        console.log("updateMed == ", updateMed);
+
         if (!updateMed) {
             return res.status(404).json({ message: "Medication not found!" });
         }
         res.status(200).json({ message: "Medication Updated!", data: updatedMed });
     }
     catch (err) {
+        console.log("err == ", err);
         res.status(500).json(err);
     }
 
