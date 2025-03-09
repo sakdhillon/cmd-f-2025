@@ -23,5 +23,4 @@ router.post('/', async (req, res) => {
     }
 });
 
-console.log(userQuestion)
 module.exports = router; 
