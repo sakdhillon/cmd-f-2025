@@ -84,6 +84,18 @@ export default function Index() {
     </TouchableOpacity>
 
 
+
+    <TouchableOpacity onPress={() => router.push("./signup")}>
+    <Text
+    style={{
+      fontSize: 20,
+      color: colors.color2,
+      backgroundColor:'white',
+      padding: 20,    
+      borderRadius: 60,
+      margin: 10,}} >Sign Up </Text>
+    </TouchableOpacity>
+
   
    
     </View>

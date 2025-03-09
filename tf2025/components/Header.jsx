@@ -39,8 +39,8 @@ const router = useRouter();
    onPress={() => router.push(back)}
    >
     <Avatar.Icon icon="arrow-left"
-    color={colors.color3}
-    style={{ backgroundColor: colors.color1 }}
+    color={'white'}
+    style={back && {backgroundColor:'white'}}
     size={40}/>
    </TouchableOpacity>
    )}
