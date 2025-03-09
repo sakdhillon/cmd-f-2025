@@ -4,11 +4,28 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import { colors, defaultStyle } from "../styles/styles";
+import { getInfo } from "@/services/user";
 import Footer from "../components/Footer";
 
 export default function Index() {
   const [message, setMessage] = useState("");
+  const [prefName, setPrefName] = useState("");
   const router = useRouter();
+
+  const getUser = async () => {
+    const fetchedUser = await getInfo();
+    console.log("fetchedUser:", fetchedUser);
+
+    if (fetchedUser) {
+      setPrefName(fetchedUser.pname);
+    } else {
+      router.push("/");
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   const fetchMessage = async () => {
     try {
