@@ -75,13 +75,13 @@ router.post('/add', async (req, res) => {
             intakeDosing
         });
 
+        await db.Medication.insertOne(newMedication);
+
         await newMedication.save();
 
         res.status(201).json({ message: "Medication added successfully!", data: newMedication });
     } catch (err) {
-        if (err.code === 11000) {
-            return res.status(400).json({ message: "A medication entry for this user already exists!" });
-        }
+        console.log(err);
         res.status(500).json(err);
     }
 
