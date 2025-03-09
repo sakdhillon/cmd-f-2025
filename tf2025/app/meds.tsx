@@ -1,11 +1,13 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import Header from '@/components/Header'
 import { defaultStyle, colors } from '@/styles/styles'
 import { TextInput } from 'react-native-paper'
 import { useState, useEffect } from 'react'
 import { useRouter } from "expo-router";
+import Footer from '@/components/Footer';
 
+const meds = () => {
 
 const [medName, setmedName] = useState('');
 const [keyMolecules, setkeyMolecules] = useState('');
@@ -15,25 +17,32 @@ const[frequency, setfrequency] = useState('');
 const[description, setdescription] = useState('');
 
 
-const meds = () => {
+
 
 
 
 return (
 <View style={defaultStyle.container}>
-    <Header back={"/"}/>
+<View style={{ paddingTop: 60 }}>
+        <Header back={"/"} />
+      </View>
 
-<View style={{
-      flex:1,
-  
-      backgroundColor:colors.color1,
-      borderRadius:50,
-      width:"100%",
-      padding:10,
-      height:"auto"
+  <View style={{ 
+       flex: 1,
+       backgroundColor: '#FFFFFF',
+       padding: 20,  
+       width: '100%',}}>
 
-}}>
+          <View style={{ 
+             alignItems: 'center',
+             marginBottom: 10,}}>
+              <Text style={{ 
+              fontSize: 28,
+              fontWeight: 'bold',
+              color: colors.color3,}}>Sign Up</Text>
+            </View>
 
+        <View style={styles.inputContainer}>
 
 <TextInput
   label="Name of Medication"
@@ -113,10 +122,44 @@ return (
 
 
 </View>
+<TouchableOpacity onPress={() => console.log('Create Medication List Pressed')} style={styles.button}>
+<Text style={styles.buttonText}>Create</Text>
+</TouchableOpacity>
+      </View>
+
+      <Footer />
 
 
 </View>
   )
 }
+
+const styles = StyleSheet.create({
+
+  inputContainer: {
+    marginBottom: 20,
+  },
+  input: {
+    marginBottom: 5,
+    backgroundColor: colors.color1,
+  
+    borderRadius: 10,
+    paddingLeft: 10,
+  },
+  button: {
+    backgroundColor: colors.color1,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: colors.color3,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
+
 
 export default meds
