@@ -19,6 +19,12 @@ app.get('/page', (req, res) => {
 const profile = require('./Profile/profile');
 app.use('/profile', profile);
 
+const signup = require('./Signup/user');
+app.use('/user', signup);
+
+const chat = require('./Chat/chat');
+app.use('/chat', chat);
+
 const meds = require('./Meds/meds');
 app.use('/meds', meds);
 
