@@ -3,6 +3,7 @@ const http = require('http');
 const cors = require('cors');
 require('dotenv').config();
 let app = express();
+// app.options('*', cors())
 
 app.use(express.json());
 
@@ -10,7 +11,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(cors({
     origin: '*',
-    methods: 'GET,POST',
+    methods: 'GET,POST,DELETE,PUT',
 }));
 
 //testing connection

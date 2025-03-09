@@ -1,6 +1,7 @@
 const express = require('express');
 const axios = require('axios')
 const router = express.Router();
+const cors = require('cors');
 const db = require("../model/db");
 
 const chatUrl = process.env.CHAT_URL
@@ -9,7 +10,6 @@ router.get('/', (req, res) => {
     db.ChatHistory.find().then(chatHistory => {
         res.status(200).json(chatHistory)
     })
-    // res.json({ message: 'Chat route!' });
 });
 
 router.post('/', async (req, res) => {
@@ -30,6 +30,16 @@ router.post('/', async (req, res) => {
         console.error("Error:", error.message);
         res.status(500).json({ error: "Could not send the question to the chatbot" });
     }
+});
+
+router.delete('/', (req, res) => {
+    console.log("Deleting chat history");
+    db.ChatHistory.deleteMany().then(() => {
+        res.status(200).json({ message: "Chat history deleted" })
+    }).catch(error => {
+        console.error("Error deleting chat history:", error.message);
+        res.status(500).json({ error: "Could not delete chat history" });
+    });
 });
 
 module.exports = router; 
