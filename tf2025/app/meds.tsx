@@ -3,7 +3,8 @@ import React from 'react'
 import Header from '@/components/Header'
 import { defaultStyle, colors } from '@/styles/styles'
 import { TextInput } from 'react-native-paper'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from "expo-router";
 
 
 const [medName, setmedName] = useState('');
