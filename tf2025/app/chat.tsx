@@ -14,6 +14,9 @@ const chat = () => {
         setResponse(res.data.answer);
       });
   };
+
+  const quesAns = [];
+
   return (
     <View style={defaultStyle.container}>
       <Header back={"/"} />

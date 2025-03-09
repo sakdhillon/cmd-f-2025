@@ -5,7 +5,7 @@ var Schema = mongoose.Schema
 
 
 var userSchema = new Schema({
-    username: {type: String, unique: true, required: 'Username cannot be empty!'},
+    username: { type: String, unique: true, required: 'Username cannot be empty!' },
     fname: String,
     lname: String,
     pname: String,
@@ -16,7 +16,7 @@ var userSchema = new Schema({
 })
 
 var medicationSchema = new Schema({
-    username: {type: String, unique: true, required: 'Username cannot be empty!'},
+    username: { type: String, unique: true, required: 'Username cannot be empty!' },
     name: String,
     description: String,
     amountpd: String,
@@ -25,9 +25,15 @@ var medicationSchema = new Schema({
     intakeDosing: String
 })
 
+var chatHistorySchema = new Schema({
+    userQuery: String,
+    botResponse: String,
+    timestamp: { type: Date, default: Date.now }
+})
 
-const User = mongoose.model('User',userSchema)
+const User = mongoose.model('User', userSchema)
 const Medication = mongoose.model('Medication', medicationSchema);
+const ChatHistory = mongoose.model('ChatHistory', chatHistorySchema)
 
 
 const initializeDB = () => {
@@ -38,5 +44,5 @@ const initializeDB = () => {
 
 
 module.exports = {
-    User, Medication, initializeDB
+    User, Medication, ChatHistory, initializeDB
 }
