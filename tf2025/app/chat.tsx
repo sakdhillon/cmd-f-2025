@@ -1,11 +1,18 @@
-import { View, Text } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import { defaultStyle, colors } from "@/styles/styles";
 import { IoSendSharp } from "react-icons/io5";
 
 import axios from "axios";
-import { TextInput } from "react-native-paper";
 
 const chat = () => {
   const [question, setQuestion] = useState("");
@@ -40,71 +47,90 @@ const chat = () => {
 
   useEffect(getChatHistory, [chatHistory]);
 
-  const quesAns = [];
-
   return (
-    <View style={defaultStyle.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
       <Header back={"/"} />
-      <View>
-        {chatHistory &&
-          chatHistory.map((chat, idx) => (
-            <View
-              key={chat._id}
-              style={{
-                flexDirection: "row",
-                justifyContent: chat.userQuery ? "flex-end" : "flex-start",
-                marginBottom: 10,
-              }}
-            >
-              {/* <Text style={{ color: "red" }}>{chat.userQuery}</Text>
-              <Text>{chat.botResponse}</Text> */}
-              {chat.userQuery && (
-                <View
-                  style={{
-                    backgroundColor: "#DCF8C6", // A light green background for user messages
-                    padding: 10,
-                    borderRadius: 15,
-                    maxWidth: "80%",
-                    marginLeft: "auto", // Push user message to the right
-                  }}
-                >
-                  <Text style={{ color: "black" }}>{chat.userQuery}</Text>
-                </View>
-              )}
-              {chat.botResponse && (
-                <View
-                  style={{
-                    backgroundColor: "grey", // A light green background for user messages
-                    padding: 10,
-                    borderRadius: 15,
-                    maxWidth: "80%",
-                    marginLeft: "auto", // Push user message to the right
-                  }}
-                >
-                  <Text style={{ color: "black" }}>{chat.botResponse}</Text>
-                </View>
-              )}
-            </View>
-          ))}
-      </View>
-      {!chatHistory && <Text>{response}</Text>}
-      <form action="submit">
-        <input
+      <ScrollView style={{ flex: 1, padding: 10 }}>
+        {chatHistory.map((chat) => (
+          <View key={chat._id} style={{ marginBottom: 10 }}>
+            {/* User message on the right */}
+            {chat.userQuery && (
+              <View
+                style={{
+                  alignSelf: "flex-end",
+                  backgroundColor: "#c4eba7",
+                  padding: 10,
+                  borderRadius: 15,
+                  maxWidth: "80%",
+                  marginBottom: 5,
+                }}
+              >
+                <Text style={{ fontSize: "1.3rem" }}>{chat.userQuery}</Text>
+              </View>
+            )}
+
+            {/* Bot response on the left */}
+            {chat.botResponse && (
+              <View
+                style={{
+                  alignSelf: "flex-start",
+                  backgroundColor: "#b6ccbc",
+                  padding: 10,
+                  borderRadius: 15,
+                  maxWidth: "80%",
+                }}
+              >
+                <Text style={{ fontSize: "1.3rem" }}>{chat.botResponse}</Text>
+              </View>
+            )}
+          </View>
+        ))}
+      </ScrollView>
+
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: "white",
+          padding: 10,
+          borderTopWidth: 1,
+          borderColor: "#ddd",
+        }}
+      >
+        <TextInput
+          style={{
+            flex: 1,
+            borderWidth: 1,
+            padding: 10,
+            borderRadius: 8,
+            borderColor: "#ccc",
+            backgroundColor: "#fff",
+            fontSize: "1.3rem",
+          }}
           value={question}
-          type="text"
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="Type here..."
+          onChangeText={setQuestion}
+          placeholder="Type your query here..."
         />
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            getChatResponse(question);
+        <Pressable
+          onPress={() => getChatResponse(question)}
+          style={{
+            backgroundColor: "#007bff",
+            padding: 10,
+            borderRadius: 8,
+            marginLeft: 10,
           }}
         >
-          <IoSendSharp />
-        </button>
-      </form>
-    </View>
+          <IoSendSharp color="white" size={20} />
+        </Pressable>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 
